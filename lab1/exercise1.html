@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Exercise1</title>
+  </head>
+  <body>
+    <ul>
+      <li data-time="5:17">ECMA6 Video</li>
+      <li data-time="8:22">Node Video</li>
+      <li data-time="3:34">Node Video</li>
+      <li data-time="4:29">ECMA6 Video</li>
+    </ul>
+    <script>
+      const items = Array.from(document.querySelectorAll('[data-time]'));
+      const ecmaItems = items.filter(item => item.textContent.toUpperCase().includes('ECMA6'));
+      const listOfTime = ecmaItems.map(item => item.getAttribute('data-time'));
+      const arrayOfSeconds = listOfTime.map(time => {
+        const [hours, minutes] = time.split(':').map(Number);
+        return hours * 60 + minutes;
+      });
+      const totalTime = arrayOfSeconds.reduce((sum, seconds) => sum + seconds, 0);
+      console.log('ecmaItems', ecmaItems);
+      console.log('listOfTime', listOfTime);
+      console.log('arrayOfSeconds', arrayOfSeconds);
+      console.log('totalTime', totalTime);
+    </script>
+  </body>
+</html>
