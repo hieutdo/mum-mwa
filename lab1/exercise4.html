@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Exercise 4</title>
+    <style>
+      #output {
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>BMI Calculator</h3>
+    <label><input type="radio" name="unit" value="metric" checked /> Metric</label>
+    <label><input type="radio" name="unit" value="english" /> English</label>
+    <input type="number" name="height" placeholder="Enter your height" />
+    <input type="number" name="weight" placeholder="Enter your weight" />
+    <button id="calculate">Calculate</button>
+    <div id="output"></div>
+    <script>
+      class BMICalculator {
+        constructor(unit, height, weight) {
+          if (!unit) {
+            throw new Error('No unit is selected. Please choose either Metric or English.');
+          }
+
+          if (!height || height < 0) {
+            throw new Error('height is not valid. It must be greater than 0.');
+          }
+
+          if (!weight || weight < 0) {
+            throw new Error('weight is not valid. It must be greater than 0.');
+          }
+
+          this.unit = unit;
+          this.height = height;
+          this.weight = weight;
+        }
+
+        calculate() {
+          return this.unit === 'metric'
+            ? this.weight / (this.height * this.height)
+            : 703 * this.weight / (this.height * this.height);
+        }
+
+        getStatus(bmi) {
+          let status = '';
+          if (bmi < 16) {
+            status = 'Severe Thinness';
+          } else if (16 <= bmi && bmi < 17) {
+            status = 'Moderate Thinness';
+          } else if (17 <= bmi && bmi < 18.5) {
+            status = 'Mild Thinness';
+          } else if (18.5 <= bmi && bmi < 25) {
+            status = 'Normal';
+          } else if (25 <= bmi && bmi < 30) {
+            status = 'Overweight';
+          } else if (30 <= bmi && bmi < 35) {
+            status = 'Obese Class 1';
+          } else if (35 <= bmi && bmi < 40) {
+            status = 'Obese Class 2';
+          } else {
+            status = 'Obese Class 3';
+          }
+          return status;
+        }
+
+        getResult() {
+          const bmi = this.calculate();
+          const status = this.getStatus(bmi);
+          return `BMI = ${bmi.toFixed(2)} (${status})`;
+        }
+      }
+
+      function printResult(msg) {
+        document.getElementById('output').innerText = msg;
+      }
+
+      document.getElementById('calculate').addEventListener('click', function () {
+        try {
+          const height = document.querySelector('input[name="height"]').value;
+          const weight = document.querySelector('input[name="weight"]').value;
+          const unit = document.querySelector('input[name="unit"]:checked').value;
+          const bmi = new BMICalculator(unit, height, weight);
+          printResult(bmi.getResult());
+        } catch (e) {
+          printResult(e.message);
+        }
+      });
+    </script>
+  </body>
+</html>
