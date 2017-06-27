@@ -1,0 +1,15 @@
+1. Explain why do we want sometimes to use `setImmediate` instead of using `setTimeout`? +
+Use `setImmediate` when we want to have the callback function executed after the I/O Queue callbacks are finished.
+One use case is when we want run a CPU-bound task like recursive computation, we should queue the iteration using
+`setImmediate` so that other queues like timers, I/O have a chance to run between recursive iterations.
+
+2. Explain the difference between `process.nextTick` and `setImmediate`? +
+* `process.nextTick` adds the given callback function to the so-called `Priority` queue or `nextTickQueue` whose tasks get
+executed right after the CallStack is drained out, irrespective of which phase the event loop is in. It's a way to
+invoke a callback immediately.
+* `setImmediate` adds the given callback function to the `Check` phase's queue whose tasks get executed after I/O operations are finished. In other words, `setImmediate` callbacks will be triggered during the current/next iteration of the event loop.
+
+3. Name 10 global modules available in Node environment. +
+`console, fs, http, net, os, path, process, stream, child_process, net.`
+
+
