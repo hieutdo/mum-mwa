@@ -1,24 +1,22 @@
 function slow(callback) {
-  setImmediate(function () {
-    if (Math.random() > 0.5) {
-      return callback('Error', null);
-    }
-    callback(null, { id: 12345 });
-  });
   for (let i = 0; i <= 1000; i++) { }
+
+  if (Math.random() > 0.5) {
+    setImmediate(callback, 'Error', null);
+  } else {
+    setImmediate(callback, null, { id: 12345 });
+  }
 }
 
 function exec(fn) {
   let doneCb, failCb;
 
-  setImmediate(function () {
-    fn(function (error, data) {
-      if (error) {
-        failCb(error);
-      } else {
-        doneCb(data);
-      }
-    });
+  setImmediate(fn, function (error, data) {
+    if (error) {
+      failCb(error);
+    } else {
+      doneCb(data);
+    }
   });
 
   return {
