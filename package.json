@@ -1,0 +1,11 @@
+{
+  "name": "MWA",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:hieudt/mum-mwa.git",
+  "author": "Hieu Do <mr.hieudt@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@reactivex/rxjs": "^5.4.1"
+  }
+}
