@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>Zip Code</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Website</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(function (user) { %>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.username %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.address.city %></td>
+                    <td><%= user.address.zipcode %></td>
+                    <td><%= user.address.geo.lat %></td>
+                    <td><%= user.address.geo.lng %></td>
+                    <td><%= user.website %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </body>
+</html>
