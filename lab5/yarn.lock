@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@reactivex/rxjs@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@reactivex/rxjs/-/rxjs-5.4.1.tgz#e472c38c84eb411690f281253d3a93a3466ad041"
+  dependencies:
+    symbol-observable "^1.0.1"
+
 accepts@~1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.3.tgz#c3ca7434938648c3e0d9c1e328dd68b622c284ca"
@@ -327,6 +333,10 @@ setprototypeof@1.0.3:
 "statuses@>= 1.3.1 < 2", statuses@~1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"
+
+symbol-observable@^1.0.1:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
 type-is@~1.6.15:
   version "1.6.15"
