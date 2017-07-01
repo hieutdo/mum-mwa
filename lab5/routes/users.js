@@ -10,7 +10,7 @@ router.get('/1', (req, res) => {
   const model = { title: 'Users - Promise' };
 
   fetch(apiUrl)
-    .then((res) => res.json())
+    .then((resp) => resp.json())
     .then((users) => {
       model.users = users;
       res.render('users', model);
@@ -21,11 +21,18 @@ router.get('/2', (req, res) => {
   const model = { title: 'Users - Observables' };
 
   Rx.Observable.from(fetch(apiUrl))
-    .flatMap((res) => res.json())
+    .flatMap((resp) => resp.json())
     .subscribe((users) => {
       model.users = users;
       res.render('users', model);
     });
+});
+
+router.get('/3', async function (req, res) {
+  const model = { title: 'Users - Async/Await' };
+
+  model.users = await fetch(apiUrl).then(resp => resp.json());
+  res.render('users', model);
 });
 
 module.exports = router;
