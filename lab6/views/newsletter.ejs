@@ -7,6 +7,7 @@
     <body>
         <h1>Subscribe to our newsletter</h1>
         <form action="/newsletter" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <div>
                 <input id="email" type="email" name="email" placeholder="Enter email address" value="<%= email %>" />
             </div>

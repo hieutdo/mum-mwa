@@ -5,6 +5,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
+const session = require('express-session');
+const csrf = require('csurf');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -23,6 +25,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 app.use(cookieParser());
+app.use(session({ secret: 'mysecretsession', resave: false, saveUninitialized: false }));
+app.use(csrf());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
@@ -30,7 +34,7 @@ app.use('/users', users);
 app.use('/newsletter', newsletter);
 
 app.get('/thankyou', function (req, res) {
-  res.render('thankyou', { email: req.query.email });
+  res.render('thankyou', { email: req.session.email });
 });
 
 // catch 404 and forward to error handler

@@ -7,7 +7,7 @@ const router = express.Router();
 const dataFile = path.join(__dirname, '..', 'data', 'subscribers.txt');
 
 router.get('/', function (req, res) {
-  res.render('newsletter', { errors: null, email: '' });
+  res.render('newsletter', { errors: null, email: '', csrfToken: req.csrfToken() });
 });
 
 router.post('/', function (req, res, next) {
@@ -26,7 +26,9 @@ router.post('/', function (req, res, next) {
   stream.write(email + '\r\n');
   stream.end();
 
-  res.redirect(`/thankyou?${querystring.stringify({ email })}`);
+  req.session.email = email;
+
+  res.redirect('/thankyou');
 });
 
 module.exports = router;
