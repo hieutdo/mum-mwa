@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Subscription</title>
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+    </head>
+    <body>
+        <h1>Subscribe to our newsletter</h1>
+        <form action="/newsletter" method="post">
+            <div>
+                <input id="email" type="email" name="email" placeholder="Enter email address" value="<%= email %>" />
+            </div>
+            <% if (errors) { errors.forEach(function (error) { %>
+            <div class="error"><%= error.msg %></div>
+            <% })} %>
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>

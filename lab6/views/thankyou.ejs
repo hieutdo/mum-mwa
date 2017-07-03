@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Subscription</title>
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+    </head>
+    <body>
+        <% if (email) { %>
+        <h1>Your email <%= email %> has been added successfully to our subscribers list.</h1>
+        <% } else { %>
+        <h1>Oops! Did you miss something?</h1>
+        <% } %>
+    </body>
+</html>
