@@ -1,0 +1,11 @@
+{
+  "name": "lab7",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Hieu Do",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "mongodb": "^2.2.29"
+  }
+}

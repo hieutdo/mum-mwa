@@ -1,0 +1,32 @@
+Books
+{
+    _id,
+    isbn,
+    author_id
+    keyword_ids
+}
+
+Authors
+{
+    _id
+    name
+}
+
+Keywords
+{
+    _id
+    name
+}
+
+Students
+{
+    _id
+    name
+}
+
+Books_Students
+{
+    book_id
+    student_id
+    return_date
+}
