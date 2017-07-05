@@ -93,6 +93,15 @@ function bootstrap() {
   }
 }
 
+function cleanup() {
+  debug('Closing the server...');
+  db.close().then(() => {
+    process.exit();
+  }).catch(() => {
+    process.exit(1);
+  });
+}
+
 /**
  * Connect to MongoDB
  */
@@ -100,3 +109,6 @@ db.get().then(bootstrap).catch((err) => {
   console.error('Unable to connect to Mongo.', err);
   process.exit(1);
 });
+
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);

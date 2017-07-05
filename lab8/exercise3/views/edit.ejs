@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' />
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+    </head>
+    <body>
+        <div class="container location-edit">
+            <div class="card">
+                <h3 class="card-header"><%= title %></h3>
+                <div class="card-block">
+                    <% if (saved === 'success') { %>
+                    <div class="alert alert-success">Location saved successfully.</div>
+                    <% } else if (saved === 'fail') { %>
+                    <div class="alert alert-danger">There was a problem with your submission. Errors have been highlighted below.</div>
+                    <% } %>
+                    <form method="post">
+                        <input type="hidden" name="_id" value="<%= location._id %>">
+                        <div class="form-group row <% if (errors.name ) { %>has-danger<% } %>">
+                            <label for="name" class="col-2 col-form-label">Name</label>
+                            <div class="col-10">
+                                <input id="name" name="name"
+                                       class="form-control <% if (errors.name ) { %>form-control-danger<% } %>"
+                                       type="text"
+                                       value="<%= location.name %>" />
+                                <% if (errors.name ) { %>
+                                <div class="form-control-feedback"><%= errors.name.msg %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="form-group row <% if (errors.category ) { %>has-danger<% } %>">
+                            <label for="category" class="col-2 col-form-label">Category</label>
+                            <div class="col-10">
+                                <input id="category" name="category"
+                                       class="form-control <% if (errors.category ) { %>form-control-danger<% } %>"
+                                       type="text"
+                                       value="<%= location.category %>" />
+                                <% if (errors.category ) { %>
+                                <div class="form-control-feedback"><%= errors.category.msg %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="form-group row <% if (errors['coord.0'] ) { %>has-danger<% } %>">
+                            <label for="longitude" class="col-2 col-form-label">Longitude</label>
+                            <div class="col-10">
+                                <input id="longitude" name="coord"
+                                       class="form-control <% if (errors['coord.0'] ) { %>form-control-danger<% } %>"
+                                       type="text"
+                                       value="<%= location.coord[0] %>" />
+                                <% if (errors['coord.0'] ) { %>
+                                <div class="form-control-feedback"><%= errors['coord.0'].msg %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="form-group row <% if (errors['coord.1'] ) { %>has-danger<% } %>">
+                            <label for="latitude" class="col-2 col-form-label">Latitude</label>
+                            <div class="col-10">
+                                <input id="latitude" name="coord"
+                                       class="form-control <% if (errors['coord.1'] ) { %>form-control-danger<% } %>"
+                                       type="text"
+                                       value="<%= location.coord[1] %>" />
+                                <% if (errors['coord.1'] ) { %>
+                                <div class="form-control-feedback"><%= errors['coord.1'].msg %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-10 offset-md-2">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a class="btn btn-secondary" href="/">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

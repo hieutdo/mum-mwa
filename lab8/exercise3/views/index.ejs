@@ -6,31 +6,37 @@
         <link rel='stylesheet' href='/stylesheets/style.css' />
     </head>
     <body>
-        <h1><%= title %></h1>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Coordinates</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% locations.forEach(function (location, index) { %>
-                <tr>
-                    <td><%= (index + 1) %></td>
-                    <td><%= location.name %></td>
-                    <td><%= location.category %></td>
-                    <td><%= location.coord %></td>
-                    <td>
-                        <a class="btn btn-sm btn-success" href="/edit/<%= location._id %>">Edit</a>
-                        <a class="btn btn-sm btn-danger" href="/delete/<%= location._id %>">Delete</a>
-                    </td>
-                </tr>
-                <% }) %>
-            </tbody>
-        </table>
+        <div class="container location-list">
+            <div class="card">
+                <h3 class="card-header"><%= title %> <a href="/create" class="btn btn-sm btn-primary float-right">Create</a></h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Longitude</th>
+                            <th>Latitude</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% locations.forEach(function (location, index) { %>
+                        <tr>
+                            <td><%= (index + 1) %></td>
+                            <td><%= location.name %></td>
+                            <td><%= location.category %></td>
+                            <td><%= location.coord[0] %></td>
+                            <td><%= location.coord[1] %></td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="/edit/<%= location._id %>">Edit</a>
+                                <a class="btn btn-sm btn-danger" href="/delete/<%= location._id %>">Delete</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </body>
 </html>
