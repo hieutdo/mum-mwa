@@ -2,6 +2,15 @@
 <html>
     <head>
         <% include partials/head.ejs %>
+        <script>
+          $(document).ready(function () {
+            $('body').on('click', '.deleteBtn', function (e) {
+              if (!confirm('Are you sure you want to delete the location?')) {
+                e.preventDefault();
+              }
+            });
+          });
+        </script>
     </head>
     <body>
         <% include partials/header.ejs %>
@@ -30,7 +39,7 @@
                             <td><%= location.coord[1] %></td>
                             <td>
                                 <a class="btn btn-sm btn-success" href="/edit/<%= location._id %>">Edit</a>
-                                <a class="btn btn-sm btn-danger" href="/delete/<%= location._id %>">Delete</a>
+                                <a class="btn btn-sm btn-danger deleteBtn" href="/delete/<%= location._id %>">Delete</a>
                             </td>
                         </tr>
                         <% }) %>

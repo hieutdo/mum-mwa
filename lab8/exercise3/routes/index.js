@@ -32,6 +32,19 @@ router.get('/edit/:id', async (req, res, next) => {
   }
 });
 
+router.get('/delete/:id', async (req, res, next) => {
+  try {
+    const db = req.app.locals.db;
+    const col = db.collection('locations');
+    const { id } = req.params;
+    await col.remove({ _id: ObjectID(id) });
+
+    res.redirect('/');
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.get('/create', function (req, res) {
   res.render('edit', {
     title: 'Create New Location',
