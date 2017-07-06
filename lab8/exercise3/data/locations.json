@@ -1,0 +1,45 @@
+[{
+	"_id": {
+		"$oid": "595e282a77ee834b3b036edf"
+	},
+	"name": "Maharishi University of Management",
+	"category": "School",
+	"coord": [
+		-91.96729060000001,
+		41.0178238
+	]
+},
+{
+	"_id": {
+		"$oid": "595e2b71e6fc4c560d66b6cf"
+	},
+	"name": "Walmart Supercenter",
+	"category": "Supermarket",
+	"coord": [
+		-91.99323500000003,
+		41.00765249999999
+	]
+},
+{
+	"_id": {
+		"$oid": "595e2bc3e6fc4c560d66b6d0"
+	},
+	"name": "Hy-Vee",
+	"category": "Supermarket",
+	"coord": [
+		-91.97848299999998,
+		41.004598
+	]
+},
+{
+	"_id": {
+		"$oid": "595e2c0ee6fc4c560d66b6d1"
+	},
+	"name": "Bonnifield Lake",
+	"category": "Park",
+	"coord": [
+		-91.9548274,
+		41.0206802
+	]
+}]
+
