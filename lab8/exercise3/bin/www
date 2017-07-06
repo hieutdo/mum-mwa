@@ -4,111 +4,82 @@
  * Module dependencies.
  */
 
+const { MongoClient } = require('mongodb');
 const debug = require('debug')('exercise3:server');
 const http = require('http');
-const db = require('../db');
+const app = require('../app');
 
-function bootstrap() {
-  const app = require('../app');
+const dbUrl = process.env.NODE_ENV === 'production'
+  ? 'mongodb://mwa-lab8:TjBsH&iZHGZbYMBNeU6djkotH@ds151222.mlab.com:51222/mwa-lab8'
+  : 'mongodb://localhost:27017/mwa';
 
-  /**
-   * Get port from environment and store in Express.
-   */
+MongoClient.connect(dbUrl)
+  .catch(err => console.error(err.stack))
+  .then(db => {
+    const port = normalizePort(process.env.PORT || '3000');
+    const server = http.createServer(app);
 
-  const port = normalizePort(process.env.PORT || '3000');
-  app.set('port', port);
+    app.set('port', port);
+    app.locals.db = db;
 
-  /**
-   * Create HTTP server.
-   */
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
 
-  const server = http.createServer(app);
+    /**
+     * Normalize a port into a number, string, or false.
+     */
+    function normalizePort(val) {
+      const port = parseInt(val, 10);
 
-  /**
-   * Listen on provided port, on all network interfaces.
-   */
+      if (isNaN(port)) {
+        // named pipe
+        return val;
+      }
 
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening);
+      if (port >= 0) {
+        // port number
+        return port;
+      }
 
-  /**
-   * Normalize a port into a number, string, or false.
-   */
-
-  function normalizePort(val) {
-    const port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-      // named pipe
-      return val;
+      return false;
     }
 
-    if (port >= 0) {
-      // port number
-      return port;
-    }
-
-    return false;
-  }
-
-  /**
-   * Event listener for HTTP server "error" event.
-   */
-
-  function onError(error) {
-    if (error.syscall !== 'listen') {
-      throw error;
-    }
-
-    const bind = typeof port === 'string'
-      ? 'Pipe ' + port
-      : 'Port ' + port;
-
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-      case 'EACCES':
-        console.error(bind + ' requires elevated privileges');
-        process.exit(1);
-        break;
-      case 'EADDRINUSE':
-        console.error(bind + ' is already in use');
-        process.exit(1);
-        break;
-      default:
+    /**
+     * Event listener for HTTP server "error" event.
+     */
+    function onError(error) {
+      if (error.syscall !== 'listen') {
         throw error;
+      }
+
+      const bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+      // handle specific listen errors with friendly messages
+      switch (error.code) {
+        case 'EACCES':
+          console.error(bind + ' requires elevated privileges');
+          process.exit(1);
+          break;
+        case 'EADDRINUSE':
+          console.error(bind + ' is already in use');
+          process.exit(1);
+          break;
+        default:
+          throw error;
+      }
     }
-  }
 
-  /**
-   * Event listener for HTTP server "listening" event.
-   */
-
-  function onListening() {
-    const addr = server.address();
-    const bind = typeof addr === 'string'
-      ? 'pipe ' + addr
-      : 'port ' + addr.port;
-    debug('Listening on ' + bind);
-  }
-}
-
-function cleanup() {
-  debug('Closing the server...');
-  db.close().then(() => {
-    process.exit();
-  }).catch(() => {
-    process.exit(1);
+    /**
+     * Event listener for HTTP server "listening" event.
+     */
+    function onListening() {
+      const addr = server.address();
+      const bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+      debug('Listening on ' + bind);
+    }
   });
-}
-
-/**
- * Connect to MongoDB
- */
-db.get().then(bootstrap).catch((err) => {
-  console.error('Unable to connect to Mongo.', err);
-  process.exit(1);
-});
-
-process.on('SIGINT', cleanup);
-process.on('SIGTERM', cleanup);
