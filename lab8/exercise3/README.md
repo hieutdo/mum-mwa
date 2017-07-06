@@ -1,5 +1,5 @@
 ## Live Demo
-[https://exercise3-lzjjpvvgyr.now.sh/](https://exercise3-lzjjpvvgyr.now.sh/)
+[https://exercise3-uaiqhjfcbd.now.sh/](https://exercise3-uaiqhjfcbd.now.sh/)
 
 ## Create indexes
 ```javascript
