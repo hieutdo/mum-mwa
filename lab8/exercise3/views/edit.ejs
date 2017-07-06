@@ -2,8 +2,31 @@
 <html>
     <head>
         <title><%= title %></title>
-        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' />
-        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwyWnztd75GO_kSzTUKUKl-ydFgj_xIF4&sensor=false&libraries=places"></script>
+        <script src="/javascripts/jquery-3.2.1.js"></script>
+        <script src='/javascripts/locationpicker.jquery.js'></script>
+        <script>
+          $(document).ready(function () {
+            $('.location-picker').locationpicker({
+              radius: 300,
+              inputBinding: {
+                latitudeInput: $('#latitude'),
+                longitudeInput: $('#longitude'),
+                locationNameInput: $('#us2-address')
+              },
+              enableAutocomplete: true,
+              autocompleteOptions: {
+                types: ['geocode'],
+              },
+              location: {
+                longitude: <%= location.coord[0] ? location.coord[0] : -91.96729060000001 %>,
+                latitude: <%= location.coord[1] ? location.coord[1] : 41.0178238 %>,
+              },
+            });
+          });
+        </script>
     </head>
     <body>
         <div class="container location-edit">
@@ -63,6 +86,19 @@
                                 <% if (errors['coord.1'] ) { %>
                                 <div class="form-control-feedback"><%= errors['coord.1'].msg %></div>
                                 <% } %>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-2 col-form-label">
+                                <label for="us2-address">Address</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" class="form-control" id="us2-address" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-10 offset-md-2">
+                                <div class="location-picker"></div>
                             </div>
                         </div>
                         <div class="form-group row">

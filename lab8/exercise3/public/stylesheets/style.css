@@ -5,3 +5,7 @@ body {
 .location-list .table {
   margin-bottom: 0;
 }
+
+.location-picker {
+  height: 400px;
+}
