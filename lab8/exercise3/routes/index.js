@@ -33,7 +33,7 @@ router.get('/edit/:id', function (req, res, next) {
   });
 });
 
-router.get('/create', function (req, res, next) {
+router.get('/create', function (req, res) {
   res.render('edit', {
     title: 'Create New Location',
     location: {
@@ -83,6 +83,69 @@ router.post(['/create', '/edit/:id'], function (req, res, next) {
       });
     }
   });
+});
+
+router.get('/search', function (req, res, next) {
+  const { query } = req;
+  const model = {
+    title: 'Search',
+    query,
+    errors: {},
+    searchResults: [],
+  };
+
+  if (!model.query.maxDistance) {
+    model.query.maxDistance = 500;
+  }
+
+  if (query.action) {
+    req.assert('category', 'Category is required').notEmpty();
+
+    req.getValidationResult().then((validationResult) => {
+      db.getCollection('locations').then((collection) => {
+        if (validationResult.isEmpty()) {
+          req.sanitize('maxDistance').toFloat();
+          req.sanitize('coord.0').toFloat();
+          req.sanitize('coord.1').toFloat();
+
+          const filter = {
+            category: query.category,
+          };
+
+          if (query.name) {
+            filter.$text = {
+              $search: query.name,
+            };
+          }
+
+          if (query.coord) {
+            filter.coord = {
+              $near: {
+                $geometry: {
+                  type: 'Point',
+                  coordinates: query.coord,
+                },
+                $maxDistance: query.maxDistance
+              },
+            };
+          }
+
+          collection.find(filter).toArray((err, results) => {
+            if (err) {
+              return next(err);
+            }
+            model.searchResults = results;
+            res.render('search', model);
+          });
+        } else {
+          model.errors = validationResult.mapped();
+          res.render('search', model);
+        }
+      });
+    });
+  } else {
+    res.render('search', model);
+  }
 });
 
 module.exports = router;

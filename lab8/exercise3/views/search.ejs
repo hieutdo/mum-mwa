@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include partials/head.ejs %>
+        <script>
+          $(document).ready(function () {
+            var searchBtn = $('#searchBtn');
+            var messageDiv = $('#message');
+
+            messageDiv.show();
+            messageDiv.text('Getting location. Please wait...')
+            searchBtn.attr('disabled', 'disabled');
+
+            navigator.geolocation.getCurrentPosition(success, fail);
+
+            function success(position) {
+              $('#latitude').val(position.coords.latitude);
+              $('#longitude').val(position.coords.longitude);
+              messageDiv.hide();
+              searchBtn.removeAttr('disabled');
+            }
+
+            function fail(err) {
+              messageDiv.hide();
+              messageDiv.text('Unable to get position: ' + err.message);
+              searchBtn.removeAttr('disabled');
+            }
+          });
+        </script>
+    </head>
+    <body>
+        <% include partials/header.ejs %>
+        <div class="container location-search">
+            <div class="card">
+                <h4 class="card-header"><%= title %></h4>
+                <div class="card-block">
+                    <form method="get">
+                        <input type="hidden" name="coord" id="longitude" />
+                        <input type="hidden" name="coord" id="latitude" />
+                        <div class="form-group row <% if (errors.category ) { %>has-danger<% } %>">
+                            <label for="category" class="col-2 col-form-label">Category</label>
+                            <div class="col-10">
+                                <input id="category" name="category"
+                                       class="form-control <% if (errors.category ) { %>form-control-danger<% } %>"
+                                       type="text"
+                                       value="<%= query.category %>" />
+                                <% if (errors.category ) { %>
+                                <div class="form-control-feedback"><%= errors.category.msg %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="form-group row <% if (errors.name ) { %>has-danger<% } %>">
+                            <label for="name" class="col-2 col-form-label">Location Name</label>
+                            <div class="col-10">
+                                <input id="name" name="name"
+                                       class="form-control <% if (errors.name ) { %>form-control-danger<% } %>"
+                                       type="text"
+                                       value="<%= query.name %>" />
+                                <% if (errors.name ) { %>
+                                <div class="form-control-feedback"><%= errors.name.msg %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="form-group row <% if (errors.maxDistance ) { %>has-danger<% } %>">
+                            <label for="maxDistance" class="col-2 col-form-label">Max Distance</label>
+                            <div class="col-10">
+                                <input id="maxDistance" name="maxDistance"
+                                       class="form-control <% if (errors.maxDistance ) { %>form-control-danger<% } %>"
+                                       type="text"
+                                       value="<%= query.maxDistance %>" />
+                                <% if (errors.maxDistance ) { %>
+                                <div class="form-control-feedback"><%= errors.maxDistance.msg %></div>
+                                <% } %>
+                                <small class="form-text text-muted">Default: 500 meters</small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4 offset-md-2">
+                                <button id="searchBtn" type="submit" class="btn btn-primary" name="action"
+                                        value="submit">Search
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <div id="message" class="text-warning text-right"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <% if (searchResults.length > 0) { %>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Longitude</th>
+                            <th>Latitude</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% searchResults.forEach(function (location, index) { %>
+                        <tr>
+                            <td><%= (index + 1) %></td>
+                            <td><%= location.name %></td>
+                            <td><%= location.category %></td>
+                            <td><%= location.coord[0] %></td>
+                            <td><%= location.coord[1] %></td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+                <% } else if (query.action) { %>
+                <div class="alert alert-warning">
+                    No results found.
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <% include partials/footer.ejs %>
+    </body>
+</html>
