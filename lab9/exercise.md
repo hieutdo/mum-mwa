@@ -14,25 +14,11 @@
     ```javascript
     db.zips.aggregate([
         {
-            $project: {
-                city: 1,
-                loc: 1,
-                pop: 1,
-                state: 1,
-                popLt1000: { $lt: ['$pop', 1000] }
-            }
-        },
-        {
             $match: {
-                popLt1000: true
+                pop: { $lt: 1000 }
             }
         },
-        {
-            $project: {
-                popLt1000: 0
-            }
-        }
-    ])
+    ])    
     ```
 3. Find all cities that have more than one zip code, sort the results by state and city name.
     ```javascript
@@ -44,15 +30,8 @@
             }
         },
         {
-            $project: {
-                _id: 1,
-                count: 1,
-                countGt1: { $gt: ['$count', 1] }
-            }
-        },
-        {
             $match: {
-                countGt1: true
+                count: { $gt: 1 }
             }
         },
         {
@@ -60,7 +39,7 @@
                 state: '$_id.state',
                 city: '$_id.city',
                 _id: 0
-            }
+            }  
         },
         {
             $sort: {
