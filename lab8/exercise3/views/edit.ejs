@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%= title %></title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <% include partials/head.ejs %>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwyWnztd75GO_kSzTUKUKl-ydFgj_xIF4&sensor=false&libraries=places"></script>
-        <script src="/javascripts/jquery-3.2.1.js"></script>
         <script src='/javascripts/locationpicker.jquery.js'></script>
         <script>
           $(document).ready(function () {
@@ -29,6 +26,7 @@
         </script>
     </head>
     <body>
+        <% include partials/header.ejs %>
         <div class="container location-edit">
             <div class="card">
                 <h3 class="card-header"><%= title %></h3>
@@ -111,5 +109,6 @@
                 </div>
             </div>
         </div>
+        <% include partials/footer.ejs %>
     </body>
 </html>

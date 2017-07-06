@@ -1,5 +1,16 @@
 body {
-  padding: 50px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > .container {
+  flex-grow: 1;
+}
+
+.footer {
+  height: 60px;
+  line-height: 60px;
 }
 
 .location-list .table {

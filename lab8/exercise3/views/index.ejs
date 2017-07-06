@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%= title %></title>
-        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' />
-        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <% include partials/head.ejs %>
     </head>
     <body>
+        <% include partials/header.ejs %>
         <div class="container location-list">
             <div class="card">
-                <h3 class="card-header"><%= title %> <a href="/create" class="btn btn-sm btn-primary float-right">Create</a></h3>
+                <h4 class="card-header"><%= title %></h4>
+                <% if (locations.length > 0) { %>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -36,7 +36,13 @@
                         <% }) %>
                     </tbody>
                 </table>
+                <% } else { %>
+                <div class="card-block">
+                    <div class="alert alert-warning">No locations created.</div>
+                </div>
+                <% } %>
             </div>
         </div>
+        <% include partials/footer.ejs %>
     </body>
 </html>
