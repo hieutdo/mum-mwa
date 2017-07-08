@@ -13,11 +13,13 @@ const dbUrl = process.env.NODE_ENV === 'production'
   ? 'mongodb://mwa-lab8:TjBsH&iZHGZbYMBNeU6djkotH@ds151222.mlab.com:51222/mwa-lab8'
   : 'mongodb://localhost:27017/mwa';
 
-MongoClient.connect(dbUrl)
-  .catch(err => console.error(err.stack))
-  .then(db => {
-    const port = normalizePort(process.env.PORT || '3000');
+bootstrap().catch(() => process.exit(1));
+
+async function bootstrap() {
+  try {
+    const db = await MongoClient.connect(dbUrl);
     const server = http.createServer(app);
+    const port = normalizePort(process.env.PORT || '3000');
 
     app.set('port', port);
     app.locals.db = db;
@@ -82,4 +84,7 @@ MongoClient.connect(dbUrl)
         : 'port ' + addr.port;
       debug('Listening on ' + bind);
     }
-  });
+  } catch (err) {
+    console.error(err.stack);
+  }
+}
