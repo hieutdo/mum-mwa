@@ -3,7 +3,7 @@ interface BankAccount {
   deposit: (value: number) => void;
 }
 
-interface Person {
+interface User {
   name: string;
   bankAccount: BankAccount;
   hobbies?: string[]
@@ -16,7 +16,7 @@ let bankAccount: BankAccount = {
   }
 };
 
-let myself: Person = {
+let myself: User = {
   name: 'Asaad',
   bankAccount: bankAccount,
   hobbies: ['Violin', 'Cooking']
