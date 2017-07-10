@@ -1,1 +1,2 @@
-<app-counter [counter]="5"></app-counter>
+<app-counter [counter]="ComponentCounterValue" (counterChange)="onCounterChange($event)"></app-counter>
+<div>Component Counter Value = {{ ComponentCounterValue }}</div>
