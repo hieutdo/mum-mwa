@@ -8,6 +8,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     <button (click)="increase(1)">+</button>
   `,
   styles: [`
+    :host {
+      display: block;
+      margin-bottom: 20px;
+    }
+
     button {
       font-size: 15px;
       font-weight: bold;
