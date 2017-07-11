@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-my-comp',
   template: `
     <ul>
-      <li *ngFor="let item of data">{{ item }}</li>
+      <li *ngFor="let item of data" upper>{{ item }}</li>
     </ul>
   `
 })
