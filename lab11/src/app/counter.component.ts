@@ -6,13 +6,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     <button (click)="increase(-1)">-</button>
     <span class="counter-value">{{ counterValue }}</span>
     <button (click)="increase(1)">+</button>
+    <div class="content">
+      <ng-content select=".counter-value-tracker"></ng-content>
+    </div>
   `,
   styles: [`
-    :host {
-      display: block;
-      margin-bottom: 20px;
-    }
-
     button {
       font-size: 15px;
       font-weight: bold;
@@ -24,6 +22,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       display: inline-block;
       text-align: center;
       width: 40px;
+    }
+
+    .content {
+      margin-top: 10px;
     }
   `]
 })
