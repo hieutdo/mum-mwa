@@ -1,14 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-my-comp',
   template: `
     <ul>
-      <li *ngFor="let item of data" upper>{{ item }}</li>
+      <li *ngFor="let item of data" upper [myvisibility]="visibility">{{ item }}</li>
     </ul>
+    <button (click)="toggleVisibility()" #toggleBtn>{{ toggleBtnText }}</button>
   `
 })
-export class MyCompComponent {
+export class MyCompComponent implements OnInit {
   @Input()
-  data: string[] = [];
+  data: string[];
+  visibility: boolean;
+  toggleBtnText: string;
+
+  toggleVisibility() {
+    this.visibility = !this.visibility;
+    this.toggleBtnText = `${this.visibility ? 'Hide' : 'Show'} items`;
+  }
+
+  ngOnInit(): void {
+    this.toggleVisibility();
+  }
 }
