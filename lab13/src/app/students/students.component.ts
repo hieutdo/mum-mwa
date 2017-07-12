@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService } from '../db.service';
+import { Student } from 'app/student';
 
 @Component({
   selector: 'app-students',
@@ -7,13 +8,13 @@ import { DbService } from '../db.service';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
-  students: any[];
+  students: Student[];
 
   constructor(private db: DbService) { }
 
   ngOnInit() {
-    this.db.getData().then((data: any[]) => {
-      this.students = data;
+    this.db.getData().subscribe((students) => {
+      this.students = students;
     });
   }
 

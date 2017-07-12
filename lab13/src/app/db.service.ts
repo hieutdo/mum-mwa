@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { Student } from './student';
 
 @Injectable()
@@ -55,19 +56,12 @@ export class DbService {
     "email": "mivins9@google.com.hk"
   }];
 
-  getData() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(this.data.map(x => new Student(x.id, x.studentId, x.name, x.email)));
-      }, 2000);
-    });
+  getData(): Observable<Student[]> {
+    return Observable.of(this.data).delay(2000);
   }
 
-  getStudent(studentId: string) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(this.data.find((item) => item.studentId === studentId));
-      }, 2000);
-    })
+  getStudent(studentId: string): Observable<Student> {
+    const student = this.data.find((item) => item.studentId === studentId);
+    return Observable.of(student).delay(2000);
   }
 }
