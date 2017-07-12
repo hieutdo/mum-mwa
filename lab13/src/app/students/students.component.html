@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div class="card">
+    <h3 class="card-header">Students</h3>
+    <div *ngIf="!students">Loading...</div>
+    <table class="table table-striped" *ngIf="students">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Student ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td>{{ student.id }}</td>
+          <td>{{ student.studentId }}</td>
+          <td>{{ student.name }}</td>
+          <td>{{ student.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
