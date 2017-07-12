@@ -9,18 +9,14 @@
     <table class="table table-striped" *ngIf="students">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Student ID</th>
           <th>Name</th>
-          <th>Email</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let student of students">
-          <td>{{ student.id }}</td>
-          <td>{{ student.studentId }}</td>
+          <td><a [routerLink]="['/profile', student.studentId]">{{ student.studentId }}</a></td>
           <td>{{ student.name }}</td>
-          <td>{{ student.email }}</td>
         </tr>
       </tbody>
     </table>

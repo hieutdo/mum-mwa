@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Student } from './student';
 
 @Injectable()
 export class DbService {
@@ -55,11 +56,18 @@ export class DbService {
   }];
 
   getData() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       setTimeout(() => {
-        resolve(this.data);
+        resolve(this.data.map(x => new Student(x.id, x.studentId, x.name, x.email)));
       }, 2000);
     });
   }
 
+  getStudent(studentId: string) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(this.data.find((item) => item.studentId === studentId));
+      }, 2000);
+    })
+  }
 }
