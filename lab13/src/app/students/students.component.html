@@ -1,12 +1,12 @@
 <div class="container mt-4">
   <div class="card">
     <h3 class="card-header">Students</h3>
-    <div class="card-block" *ngIf="!students">
+    <div class="card-block" *ngIf="!(students$ | async)?.length">
       <div class="d-flex justify-content-center">
         <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
       </div>
     </div>
-    <table class="table table-striped" *ngIf="students">
+    <table class="table table-striped" *ngIf="(students$ | async)?.length > 0">
       <thead>
         <tr>
           <th>#</th>
@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of students; let i = index">
+        <tr *ngFor="let student of students$ | async; let i = index">
           <td>{{ i + 1 }}</td>
           <td><a [routerLink]="['/profile', student.studentId]">{{ student.studentId }}</a></td>
           <td>{{ student.name }}</td>

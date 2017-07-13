@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService } from '../db.service';
 import { Student } from 'app/student';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-students',
@@ -8,14 +9,12 @@ import { Student } from 'app/student';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent implements OnInit {
-  students: Student[];
+  students$: Observable<Student[]>;
 
   constructor(private db: DbService) { }
 
   ngOnInit() {
-    this.db.getData().subscribe((students) => {
-      this.students = students;
-    });
+    this.students$ = this.db.getData();
   }
 
 }
