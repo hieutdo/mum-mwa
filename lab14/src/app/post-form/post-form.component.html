@@ -1,18 +1,37 @@
-<form>
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name">
+<form [formGroup]="postForm" (ngSubmit)="handleSubmit()">
+  <div class="form-group"
+       [class.has-danger]="postForm.controls['name'].invalid && postForm.controls['name'].touched">
+    <label class="form-control-label" for="name">Name</label>
+    <input type="text" class="form-control" id="name" [formControl]="postForm.controls['name']">
+    <div class="form-control-feedback"
+         *ngIf="postForm.controls['name'].invalid && postForm.controls['name'].touched">
+      Name is required.
+    </div>
+  </div>
+  <div class="form-group"
+       [class.has-danger]="postForm.controls['email'].invalid && postForm.controls['email'].touched">
+    <label class="form-control-label" for="email">Email address</label>
+    <input type="email" class="form-control" id="email" [formControl]="postForm.controls['email']">
+    <div class="form-control-feedback"
+         *ngIf="postForm.controls['email'].hasError('required') && postForm.controls['email'].touched">
+      Email is required
+    </div>
+    <div class="form-control-feedback"
+         *ngIf="postForm.controls['email'].hasError('email') && !postForm.controls['email'].hasError('required') && postForm.controls['email'].touched">
+      Email is not valid
+    </div>
+  </div>
+  <div class="form-group"
+       [class.has-danger]="postForm.controls['post'].invalid && postForm.controls['post'].touched">
+    <label class="form-control-label" for="post">Post</label>
+    <textarea class="form-control" id="post" rows="7" [formControl]="postForm.controls['post']"></textarea>
+    <div class="form-control-feedback"
+         *ngIf="postForm.controls['post'].invalid && postForm.controls['post'].touched">
+      Post must have at least 10 characters
+    </div>
   </div>
   <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="email" class="form-control" id="email">
-  </div>
-  <div class="form-group">
-    <label for="post">Post</label>
-    <textarea class="form-control" id="post" rows="7"></textarea>
-  </div>
-  <div class="form-group">
-    <button type="button" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-primary" [disabled]="postForm.invalid">Submit</button>
     <button type="button" class="btn btn-success">Get Data</button>
   </div>
 </form>
