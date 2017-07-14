@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostComponent } from './post/post.component';
 import { PostService } from './post.service';
+import { PostPipe } from './post.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostListComponent,
-    PostComponent
+    PostComponent,
+    PostPipe
   ],
   imports: [
     BrowserModule,

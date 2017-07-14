@@ -2,12 +2,12 @@
   <div class="card-header">
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
-      <input type="text" class="form-control" placeholder="Enter your search terms">
+      <input type="text" class="form-control" placeholder="Enter your search terms" #searchInput (input)="0">
     </div>
   </div>
   <div class="card-block">
     <ul class="list-group">
-      <li class="list-group-item" *ngFor="let post of posts$ | async">
+      <li class="list-group-item" *ngFor="let post of posts | post:searchInput.value">
         <app-post [data]="post"></app-post>
       </li>
     </ul>

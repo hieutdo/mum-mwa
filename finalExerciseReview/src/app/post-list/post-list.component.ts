@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { PostService } from '../post.service';
-import { Observable } from 'rxjs/Observable';
+import { Component, Input } from '@angular/core';
 import { Post } from '../post';
 
 @Component({
@@ -8,13 +6,7 @@ import { Post } from '../post';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit {
-  posts$: Observable<Post[]>;
-
-  constructor(private postService: PostService) { }
-
-  ngOnInit() {
-    this.posts$ = this.postService.getPosts(1);
-  }
-
+export class PostListComponent {
+  @Input()
+  posts: Array<Post>;
 }
